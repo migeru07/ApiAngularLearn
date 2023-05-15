@@ -21,6 +21,11 @@ export class ProductComponent {
     description: ''
   };
   @Output() addedProduct = new EventEmitter<Product>();
+  @Output() showProduct = new EventEmitter<string>();
+
+  onShowDetail() {
+    this.showProduct.emit(this.product.id);
+  }
 
   constructor() { }
 
