@@ -1,14 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA , OnInit } from '@angular/core';
+import {A11y, Mousewheel, Navigation, Pagination, SwiperOptions} from 'swiper';
+
 
 import { Product } from '../../models/product.model';
 
 import { StoreService } from '../../services/store.service';
 import { ProductsService } from '../../services/products.service';
+import { register } from 'swiper/element/bundle'
+
+register();
+
+
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
-  styleUrls: ['./products.component.scss']
+  styleUrls: ['./products.component.scss'],
+
 })
 export class ProductsComponent implements OnInit {
 
@@ -16,6 +24,18 @@ export class ProductsComponent implements OnInit {
   total = 0;
   products: Product[] = [];
   showProductDetail = false;
+
+  productChosen: Product = {
+    id: '',
+    price: 0,
+    images: [],
+    title: '',
+    category: {
+      id: '',
+      name: ''
+    },
+    description: ''
+  };
 
   constructor(
     private storeService: StoreService,
@@ -43,8 +63,11 @@ export class ProductsComponent implements OnInit {
   onShowDetail(id: string) {
     this.productsService.getProduct(id)
     .subscribe(data => {
-      console.log('product',data);
+      this.toggleProductDetail();
+      this.productChosen = data;
     })
   }
+
+
 
 }

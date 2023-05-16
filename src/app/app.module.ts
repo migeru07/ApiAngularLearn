@@ -12,6 +12,11 @@ import { NavComponent } from './components/nav/nav.component';
 import { ReversePipe } from './pipes/reverse.pipe';
 import { TimeAgoPipe } from './pipes/time-ago.pipe';
 import { HighlightDirective } from './directives/highlight.directive';
+import { register } from 'swiper/element/bundle';
+import { SwiperDirective } from './directives/swiper.directive';
+import { StreamsSwiperComponent } from './components/streams-swiper/streams-swiper.component'
+
+register();
 
 @NgModule({
   declarations: [
@@ -22,7 +27,8 @@ import { HighlightDirective } from './directives/highlight.directive';
     NavComponent,
     ReversePipe,
     TimeAgoPipe,
-    HighlightDirective
+    HighlightDirective,
+
   ],
   imports: [
     BrowserModule,
