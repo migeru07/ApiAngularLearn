@@ -2,7 +2,7 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA , OnInit } from '@angular/core';
 import {A11y, Mousewheel, Navigation, Pagination, SwiperOptions} from 'swiper';
 
 
-import { Product } from '../../models/product.model';
+import { Product, CreateProductDTO, UpdateProductDTO } from '../../models/product.model';
 
 import { StoreService } from '../../services/store.service';
 import { ProductsService } from '../../services/products.service';
@@ -68,6 +68,41 @@ export class ProductsComponent implements OnInit {
     })
   }
 
+  createNewProduct() {
+    const product: CreateProductDTO = {
+      title: 'Piedra Filosofal',
+      description: 'Una roca de valor infinito',
+      images: [`https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTedfV_uCzovjJejZ7yt8YYET00MJrPTkmJS_o9WetyAmfbMRLwhnlPm1pmUR-2cXGIKnw&usqp=CAU`],
+      price: 8,
+      categoryId: 2
+    } 
+    this.productsService.create(product)
+    .subscribe(data => {
+      this.products.unshift(data)
+    });
+  }
 
+  updateProduct() {
+    const changes: UpdateProductDTO = {
+      title: 'La piedra RojaStone'
+    }
+    const id = this.productChosen.id;
+    this.productsService.update(id, changes)
+    .subscribe(data => {
+      const productIndex = this.products.findIndex(item => item.id === this.productChosen.id);
+      this.products[productIndex] = data;
+      this.productChosen = data;
+    })
+  }
+
+  deleteProduct() {
+    const id = this.productChosen.id;
+    this.productsService.delete(id)
+    .subscribe(data => {
+      const productIndex = this.products.findIndex(item => item.id === this.productChosen.id);
+      this.products.splice(productIndex, 1);
+      this.showProductDetail = false;
+    });
+  }
 
 }

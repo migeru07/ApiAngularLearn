@@ -1,4 +1,5 @@
 <button (click)="toggleProductDetail()">Ver detalle</button>
+<button (click)="createNewProduct()">Crear Nuevo</button>
 <div class="products--grid">
   <app-product
     [product]="product"
@@ -10,8 +11,9 @@
     <div *ngIf="productChosen">
       <button (click)="toggleProductDetail()">Close</button>
       <h1>{{ productChosen.title }}</h1>
-      Contenido
       <app-img *ngIf="productChosen.images.length > 0" [img]="productChosen.images[0]" ></app-img>
+      <button (click)="updateProduct()">Editar</button>
+      <button (click)="deleteProduct()">Eliminar</button>
     </div>
   </div>
 </div>
