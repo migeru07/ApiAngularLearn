@@ -24,6 +24,8 @@ export class ProductsComponent implements OnInit {
   total = 0;
   products: Product[] = [];
   showProductDetail = false;
+  limit = 10;
+  offset = 0;
 
   productChosen: Product = {
     id: '',
@@ -45,7 +47,7 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.productsService.getAllProducts()
+    this.productsService.getProductsByPage(10,0)
     .subscribe(data => {
       this.products = data;
     });
@@ -104,5 +106,14 @@ export class ProductsComponent implements OnInit {
       this.showProductDetail = false;
     });
   }
+
+  loadMore() {
+    this.productsService.getProductsByPage(this.limit,this.offset)
+    .subscribe(data => {
+      this.products.push(...data);
+      this.offset += this.limit;
+    });
+  }
+
 
 }
