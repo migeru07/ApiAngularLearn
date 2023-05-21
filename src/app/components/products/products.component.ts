@@ -1,6 +1,6 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA , OnInit } from '@angular/core';
-import {A11y, Mousewheel, Navigation, Pagination, SwiperOptions} from 'swiper';
-
+import { Component, OnInit } from '@angular/core';
+import { switchMap } from 'rxjs/operators';
+import { zip } from 'rxjs';
 
 import { Product, CreateProductDTO, UpdateProductDTO } from '../../models/product.model';
 
@@ -26,6 +26,7 @@ export class ProductsComponent implements OnInit {
   showProductDetail = false;
   limit = 10;
   offset = 0;
+  statusDetail: 'loading' | 'success' | 'error' | 'init' = 'init';
 
   productChosen: Product = {
     id: '',
@@ -47,7 +48,7 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.productsService.getProductsByPage(10,0)
+    this.productsService.getAllProducts(10,0)
     .subscribe(data => {
       this.products = data;
     });
@@ -63,10 +64,38 @@ export class ProductsComponent implements OnInit {
   }
 
   onShowDetail(id: string) {
+    this.statusDetail = 'loading';
+    this.toggleProductDetail();
     this.productsService.getProduct(id)
+    .subscribe({
+      next: (data) => {
+
+        this.productChosen = data;
+        this.statusDetail = 'success';
+      },
+      error: errorMsg => {
+        window.alert(errorMsg);
+        this.statusDetail = 'error';
+      }
+    });
+  }
+
+  readAndUpdate(id: string) {
+    this.productsService.getProduct(id)
+    .pipe(
+      switchMap((product) => this.productsService.update(product.id, {title: 'change'}))
+      //, switchMap((product) => this.productsService.update(product.id, {title: 'change'}))
+    )
     .subscribe(data => {
-      this.toggleProductDetail();
-      this.productChosen = data;
+      console.log(data);
+    });
+    zip(
+      this.productsService.getProduct(id),
+      this.productsService.update(id, {title: 'nuevo'})
+    )
+    .subscribe(response => {
+      const read = response[0];
+      const update = response[1];
     })
   }
 
@@ -77,7 +106,7 @@ export class ProductsComponent implements OnInit {
       images: [`https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTedfV_uCzovjJejZ7yt8YYET00MJrPTkmJS_o9WetyAmfbMRLwhnlPm1pmUR-2cXGIKnw&usqp=CAU`],
       price: 8,
       categoryId: 2
-    } 
+    }
     this.productsService.create(product)
     .subscribe(data => {
       this.products.unshift(data)
