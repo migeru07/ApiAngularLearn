@@ -28,8 +28,8 @@ export class AppComponent {
 
   createUser() {
     this.UsersService.create({
-      name: 'Pedro',
-      email: 'rock@mail.com',
+      name: 'Miguel',
+      email: 'juan@miguel.do',
       password: '123123'
     })
     .subscribe(rta => {
@@ -41,14 +41,10 @@ export class AppComponent {
     this.authService.login('rock@mail.com','123123')
     .subscribe(rta => {
       this.token = rta.access_token;
+      console.log(this.token); 
     })
   }
 
-  getProfile() {
-    this.authService.profile(this.token)
-    .subscribe(profile => {
-      console.log(profile);
-    });
-  }
+
 
 }
