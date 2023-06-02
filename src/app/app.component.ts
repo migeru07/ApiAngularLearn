@@ -19,7 +19,7 @@ export class AppComponent {
   ) { }
 
   onLoaded(img: string) {
-    console.log('log padre', img);
+    
   }
 
   toggleImg() {
@@ -32,8 +32,8 @@ export class AppComponent {
       email: 'juan@miguel.do',
       password: '123123'
     })
-    .subscribe(rta => {
-      console.log(rta);
+    .subscribe(() => {
+      
     })
   }
 
@@ -41,7 +41,7 @@ export class AppComponent {
     this.authService.login('rock@mail.com','123123')
     .subscribe(rta => {
       this.token = rta.access_token;
-      console.log(this.token); 
+
     })
   }
 

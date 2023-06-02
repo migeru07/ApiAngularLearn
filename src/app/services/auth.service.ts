@@ -35,7 +35,7 @@ export class AuthService {
     });
   }
 
-  loginAndGet(email: string = 'juan@miguel.do', password: string = '123123') {
+  loginAndGet(email: string , password: string) {
     return this.login(email, password)
     .pipe(
       switchMap(() => this.profile())

@@ -10,8 +10,6 @@ import { register } from 'swiper/element/bundle'
 
 register();
 
-
-
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
@@ -69,7 +67,6 @@ export class ProductsComponent implements OnInit {
     this.productsService.getProduct(id)
     .subscribe({
       next: (data) => {
-
         this.productChosen = data;
         this.statusDetail = 'success';
       },
