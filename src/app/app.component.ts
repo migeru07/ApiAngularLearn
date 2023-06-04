@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { AuthService } from './services/auth.service';
 import { UsersService } from './services/users.service';
+import { FilesService } from './services/files.service';
 
 @Component({
   selector: 'app-root',
@@ -15,11 +16,12 @@ export class AppComponent {
 
   constructor(
     private authService: AuthService,
-    private UsersService: UsersService
+    private UsersService: UsersService,
+    private filesService: FilesService
   ) { }
 
   onLoaded(img: string) {
-    
+
   }
 
   toggleImg() {
@@ -33,7 +35,7 @@ export class AppComponent {
       password: '123123'
     })
     .subscribe(() => {
-      
+
     })
   }
 
@@ -43,6 +45,11 @@ export class AppComponent {
       this.token = rta.access_token;
 
     })
+  }
+
+  downloadPDF() {
+    this.filesService.getFile('laHoja.pdf','https://young-sands-07814.herokuapp.com/api/files/dummy.pdf','application/pdf')
+    .subscribe()
   }
 
 
