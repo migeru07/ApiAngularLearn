@@ -52,6 +52,4 @@ export class AppComponent {
     .subscribe()
   }
 
-
-
 }
