@@ -21,6 +21,13 @@ export class ProductsComponent {
   myShoppingCart: Product[] = [];
   total = 0;
   @Input() products: Product[] = [];
+  @Input() 
+    set productId(id : string | null) {
+      if(id) {
+        this.onShowDetail(id);
+      }
+    }
+  @Output() loadMoreEvent = new EventEmitter<void>();
   showProductDetail = false;
 
   statusDetail: 'loading' | 'success' | 'error' | 'init' = 'init';
@@ -42,9 +49,7 @@ export class ProductsComponent {
     private productsService: ProductsService
   ) {
     this.myShoppingCart = this.storeService.getShoppingCart();
-  }
-
-  @Output() loadMoreEvent = new EventEmitter<void>();
+  } 
 
   onAddToShoppingCart(product: Product) {
     this.storeService.addProduct(product);
@@ -57,7 +62,9 @@ export class ProductsComponent {
 
   onShowDetail(id: string) {
     this.statusDetail = 'loading';
-    this.toggleProductDetail();
+    if (!this.showProductDetail) {
+      this.showProductDetail = true;
+    }
     this.productsService.getProduct(id)
     .subscribe({
       next: (data) => {

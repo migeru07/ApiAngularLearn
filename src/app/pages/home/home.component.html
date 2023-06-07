@@ -1,1 +1,5 @@
-<app-products [products]="products" (loadMoreEvent)="handleLoadMore()"></app-products>
+<app-products
+  [productId]="productId"
+  [products]="products" 
+  (loadMoreEvent)="handleLoadMore()"
+></app-products>

@@ -4,5 +4,6 @@
 <h2>{{ product.price | currency:'DOP ' }}</h2>
 <p>{{ product.title }}</p>
 <h2>{{ product.taxes ?? '' | currency:'ITBIS ' }}</h2>
-<button (click)="onShowDetail()">Ver Detalle</button>
+<!-- <button (click)="onShowDetail()">Ver Detalle</button> -->
+<a routerLink="." [queryParams]="{product: product.id}">Ver detalle</a>
 <button (click)="onAddToCart()">Add cart</button>
