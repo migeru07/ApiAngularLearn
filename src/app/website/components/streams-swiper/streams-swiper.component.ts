@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 //import {MainHeadingComponent} from "../main-heading/main-heading.component";
 //import {StreamItemComponent} from "./stream-item/stream-item.component";
 import {A11y, Mousewheel, Navigation, Pagination, SwiperOptions} from 'swiper';
-import {SwiperDirective} from "../../directives/swiper.directive";
+import {SwiperDirective} from "../../../website/directives/swiper.directive";
 
 @Component({
   selector: 'app-streams-swiper',

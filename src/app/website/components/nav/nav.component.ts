@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { StoreService } from '../../services/store.service';
+import { StoreService } from '../../../services/store.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { CategoriesService } from 'src/app/services/categories.service';
 
@@ -18,10 +18,10 @@ export class NavComponent implements OnInit {
   counter = 0;
   categories: Category[] = [];
   profile: User = {
-    id: '', 
+    id: '',
     name: '',
     email: '',
-    password: ''  
+    password: ''
   };
 
   constructor(
@@ -44,14 +44,14 @@ export class NavComponent implements OnInit {
   login() {
     this.authService.loginAndGet('juan@miguel.do','123123')
     .subscribe(user => {
-      this.profile = user; 
+      this.profile = user;
     })
   }
 
   getAllCategories() {
     this.categoriesService.getAll()
     .subscribe(data => {
-      this.categories = data;      
+      this.categories = data;
     })
   }
 
