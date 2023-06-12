@@ -9,7 +9,6 @@ import { NavComponent } from './components/nav/nav.component';
 
 import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from '../not-found/not-found.component';
-import { CategoryComponent } from './pages/category/category.component';
 import { MycartComponent } from './pages/mycart/mycart.component';
 import { LoginComponent } from './pages/login/login.component';
 
@@ -24,7 +23,6 @@ import { LayoutComponent } from './components/layout/layout.component';
       NavComponent,
       HomeComponent,
       NotFoundComponent,
-      CategoryComponent,
       MycartComponent,
       LoginComponent,
       RegisterComponent,
