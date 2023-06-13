@@ -6,7 +6,8 @@ import { CategoryComponent } from './category.component';
 const routes: Routes = [
   {
     path: ':id',
-    component: CategoryComponent
+    component: CategoryComponent,
+    data: { preload: true}
   }
 ];
 
